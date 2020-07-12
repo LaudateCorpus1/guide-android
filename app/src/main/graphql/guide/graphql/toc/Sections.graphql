@@ -1,0 +1,10 @@
+query Sections($id: Int!) {
+  chapter(id: $id) {
+    number
+    title
+    sections {
+      number
+      title
+    }
+  }
+}

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">📖 The GraphQL Guide</string>
+    <string name="error">An error occurred.</string>
+</resources>
