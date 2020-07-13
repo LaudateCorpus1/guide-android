@@ -4,15 +4,24 @@
                                                    android:layout_height="match_parent"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Toolbar android:layout_width="0dp" android:layout_height="wrap_content"
-             app:layout_constraintStart_toStartOf="parent"
-             app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintTop_toTopOf="parent"
-             android:background="@color/colorPrimary"
-             android:title="@string/app_name"
-             android:titleTextColor="@android:color/white"
-             android:id="@+id/book_header"
-    />
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/book_header_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.appcompat.widget.Toolbar
+            app:titleTextColor="?attr/colorOnPrimary"
+            android:id="@+id/book_header"
+            android:title="@string/app_name"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chapters"
@@ -21,5 +30,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/book_header" />
+        app:layout_constraintTop_toBottomOf="@+id/book_header_appbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

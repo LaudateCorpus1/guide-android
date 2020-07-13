@@ -5,43 +5,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingStart="20dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
     android:background="?selectableItemBackground">
 
     <TextView
         android:id="@+id/chapter_header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        style="@style/AppTheme.Heading"
         app:layout_constraintBottom_toTopOf="@+id/chapter_subheader"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"></TextView>
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/chapter_subheader"
         android:layout_width="0dp"
+        style="@style/AppTheme.Subheading"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chapter_header"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/chapter_header" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

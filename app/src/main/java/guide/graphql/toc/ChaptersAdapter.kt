@@ -1,12 +1,14 @@
 package guide.graphql.toc
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import guide.graphql.toc.databinding.ChapterBinding
 
 class ChaptersAdapter(
-    private val chapters: List<ChaptersQuery.Chapter>
+    private val chapters: List<ChaptersQuery.Chapter>,
+    private val onItemClicked: ((ChaptersQuery.Chapter) -> Unit)
 ) :
     RecyclerView.Adapter<ChaptersAdapter.ViewHolder>() {
 
@@ -21,18 +23,22 @@ class ChaptersAdapter(
         return ViewHolder(binding)
     }
 
-    var onItemClicked: ((ChaptersQuery.Chapter) -> Unit)? = null
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val chapter = chapters[position]
         val header =
             if (chapter.number == null) chapter.title else "Chapter ${chapter.number.toInt()}"
 
         holder.binding.chapterHeader.text = header
-        holder.binding.chapterSubheader.text = if (chapter.number == null) "" else chapter.title
+        if (chapter.number == null) {
+            holder.binding.chapterSubheader.visibility = View.GONE
+
+        } else {
+            holder.binding.chapterSubheader.text = chapter.title
+            holder.binding.chapterSubheader.visibility = View.VISIBLE
+        }
 
         holder.binding.root.setOnClickListener {
-            onItemClicked?.invoke(chapter)
+            onItemClicked.invoke(chapter)
         }
     }
 }

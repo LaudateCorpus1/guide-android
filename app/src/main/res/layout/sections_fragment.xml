@@ -6,16 +6,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <Toolbar
-        android:id="@+id/chapter_header"
-        android:layout_width="0dp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/chapter_header_appbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:titleTextColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.appcompat.widget.Toolbar
+            app:titleTextColor="?attr/colorOnPrimary"
+            android:id="@+id/chapter_header"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/sections"
@@ -24,7 +28,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chapter_header" />
+        app:layout_constraintTop_toBottomOf="@+id/chapter_header_appbar" />
 
     <ProgressBar
         android:id="@+id/spinner"

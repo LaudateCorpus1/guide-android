@@ -1,5 +1,6 @@
 package guide.graphql.toc
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,7 +8,8 @@ import guide.graphql.toc.databinding.SectionBinding
 
 class SectionsAdapter(
     private val chapterNumber: Int?,
-    private val sections: List<SectionsQuery.Section>
+    private val sections: List<SectionsQuery.Section?>,
+    private val context: Context
 ) :
     RecyclerView.Adapter<SectionsAdapter.ViewHolder>() {
 
@@ -24,7 +26,8 @@ class SectionsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val section = sections[position]
-        holder.binding.sectionTitle.text =
-            if (section.number == null) section.title else "${chapterNumber}.${section.number}: ${section.title}"
+        section?.let {
+            holder.binding.sectionTitle.text = context.getString(R.string.section_title, chapterNumber.toString(), section.number.toString(), section.title)
+        }
     }
 }
