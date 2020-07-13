@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/nav"
-            app:startDestination="@id/chapters_fragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/chapters_fragment">
 
     <fragment
         android:id="@+id/chapters_fragment"
@@ -18,6 +18,7 @@
         android:id="@+id/sections_fragment"
         android:name="guide.graphql.toc.SectionsFragment"
         tools:layout="@layout/sections_fragment">
+
         <argument
             android:name="chapterId"
             app:argType="integer" />

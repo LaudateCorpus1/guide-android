@@ -61,7 +61,7 @@ class ChaptersFragment : Fragment() {
 
             response.data?.chapters?.let { chapters ->
                 val adapter =
-                    ChaptersAdapter(chapters) { chapter ->
+                    ChaptersAdapter(chapters, requireContext()) { chapter ->
                         findNavController().navigate(
                             ChaptersFragmentDirections.viewSections(
                                 chapterId = chapter.id

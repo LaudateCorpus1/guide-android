@@ -27,7 +27,12 @@ class SectionsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val section = sections[position]
         section?.let {
-            holder.binding.sectionTitle.text = context.getString(R.string.section_title, chapterNumber.toString(), section.number.toString(), section.title)
+            holder.binding.sectionTitle.text = context.getString(
+                R.string.section_title,
+                chapterNumber.toString(),
+                section.number.toString(),
+                section.title
+            )
         }
     }
 }

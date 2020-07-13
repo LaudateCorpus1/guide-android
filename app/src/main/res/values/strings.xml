@@ -3,6 +3,7 @@
     <string name="error">An error occurred.</string>
     <string name="graphql_error">Error making the GraphQL request: %s</string>
     <string name="chapter_title">Chapter %s: %s</string>
-    <string name="no_section_error">This chapter has no sections.</string>
+    <string name="no_sections">This chapter has no sections.</string>
     <string name="section_title">%s.%s: %s</string>
+    <string name="chapter_number">Chapter %s</string>
 </resources>

@@ -1,5 +1,6 @@
 package guide.graphql.toc
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import guide.graphql.toc.databinding.ChapterBinding
 
 class ChaptersAdapter(
     private val chapters: List<ChaptersQuery.Chapter>,
+    private val context: Context,
     private val onItemClicked: ((ChaptersQuery.Chapter) -> Unit)
 ) :
     RecyclerView.Adapter<ChaptersAdapter.ViewHolder>() {
@@ -26,7 +28,10 @@ class ChaptersAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val chapter = chapters[position]
         val header =
-            if (chapter.number == null) chapter.title else "Chapter ${chapter.number.toInt()}"
+            if (chapter.number == null) chapter.title else context.getString(
+                R.string.chapter_number,
+                chapter.number.toInt().toString()
+            )
 
         holder.binding.chapterHeader.text = header
         if (chapter.number == null) {

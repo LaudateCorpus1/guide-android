@@ -61,33 +61,37 @@ class SectionsFragment : Fragment() {
                 return@launchWhenResumed
             }
 
-            val chapter = response.data?.chapter
-            if (chapter == null || response.hasErrors()) {
+            if (response.hasErrors()) {
                 showErrorMessage(response.errors?.get(0)?.message ?: getString(R.string.error))
                 return@launchWhenResumed
             }
 
-            val chapterNumber = chapter.number?.toInt()
-            binding.spinner.visibility = View.GONE
-            binding.chapterHeader.title =
-                if (chapter.number == null) chapter.title else getString(
-                    R.string.chapter_title,
-                    chapter.number.toString(),
-                    chapter.title
-                )
+            response.data?.chapter?.let { chapter ->
+                val chapterNumber = chapter.number?.toInt()
+                binding.spinner.visibility = View.GONE
+                binding.chapterHeader.title =
+                    if (chapter.number == null) chapter.title else getString(
+                        R.string.chapter_title,
+                        chapter.number.toString(),
+                        chapter.title
+                    )
 
-            if (chapter.sections.size > 1) {
-                val adapter =
-                    SectionsAdapter(chapterNumber, chapter.sections, requireContext())
-                val layoutManager = LinearLayoutManager(requireContext())
-                binding.sections.layoutManager = layoutManager
-                val itemDivider = DividerItemDecoration(requireContext(), layoutManager.orientation)
-                binding.sections.addItemDecoration(itemDivider)
-                binding.sections.adapter = adapter
-            } else {
-                binding.error.text = getString(R.string.no_section_error)
-                binding.error.visibility = View.VISIBLE
+                if (chapter.sections.size > 1) {
+                    val adapter =
+                        SectionsAdapter(chapterNumber, chapter.sections, requireContext())
+                    val layoutManager = LinearLayoutManager(requireContext())
+                    binding.sections.layoutManager = layoutManager
+                    val itemDivider =
+                        DividerItemDecoration(requireContext(), layoutManager.orientation)
+                    binding.sections.addItemDecoration(itemDivider)
+                    binding.sections.adapter = adapter
+                } else {
+                    binding.error.text = getString(R.string.no_sections)
+                    binding.error.visibility = View.VISIBLE
+                }
             }
+
+
         }
     }
 
