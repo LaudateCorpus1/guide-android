@@ -1,7 +1,6 @@
 package guide.graphql.toc
 
 //https://github.com/android/architecture-components-samples/blob/master/GithubBrowserSample/app/src/main/java/com/android/example/github/vo/Resource.kt
-
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
     companion object {
         fun <T> success(data: T?): Resource<T> {

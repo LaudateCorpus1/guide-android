@@ -46,21 +46,21 @@ class SectionsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val activity = (requireActivity() as AppCompatActivity)
-        activity.setSupportActionBar(binding.chapterHeader)
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        binding.chapterHeader.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
-
-        binding.chapterHeader.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
-        activity.title =
-            if (args.chapterNumber == -1) args.chapterTitle else getString(
-                R.string.chapter_title,
-                args.chapterNumber.toString(),
-                args.chapterTitle
-            )
+//        val activity = (requireActivity() as AppCompatActivity)
+//        activity.setSupportActionBar(binding.chapterHeader)
+//        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//
+//        binding.chapterHeader.setNavigationOnClickListener {
+//            findNavController().navigateUp()
+//        }
+//
+//        binding.chapterHeader.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
+//        activity.title =
+//            if (args.chapterNumber == -1) args.chapterTitle else getString(
+//                R.string.chapter_title,
+//                args.chapterNumber.toString(),
+//                args.chapterTitle
+//            )
 
         val adapter =
             SectionsAdapter(

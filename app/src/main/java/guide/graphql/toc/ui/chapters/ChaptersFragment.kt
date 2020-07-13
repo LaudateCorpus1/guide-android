@@ -41,8 +41,7 @@ class ChaptersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.bookHeader)
-
+        requireActivity()
         val adapter =
             ChaptersAdapter(
                 listOf(),
