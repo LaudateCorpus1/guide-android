@@ -45,6 +45,8 @@ dependencies {
     implementation("com.google.android.material:material:1.3.0-alpha01")
     implementation("com.apollographql.apollo:apollo-runtime:2.2.2")
     implementation("com.apollographql.apollo:apollo-coroutines-support:2.2.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
+
 }
 
 apollo {

@@ -1,17 +1,24 @@
-package guide.graphql.toc
+package guide.graphql.toc.ui.sections
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import guide.graphql.toc.R
+import guide.graphql.toc.SectionsQuery
 import guide.graphql.toc.databinding.SectionBinding
 
 class SectionsAdapter(
     private val chapterNumber: Int?,
-    private val sections: List<SectionsQuery.Section?>,
+    private var sections: List<SectionsQuery.Section?>,
     private val context: Context
 ) :
     RecyclerView.Adapter<SectionsAdapter.ViewHolder>() {
+
+    fun updateSections(sections: List<SectionsQuery.Section?>) {
+        this.sections = sections
+        notifyDataSetChanged()
+    }
 
     class ViewHolder(val binding: SectionBinding) : RecyclerView.ViewHolder(binding.root)
 
