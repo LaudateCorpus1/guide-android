@@ -57,7 +57,7 @@ class ChaptersFragment : Fragment() {
                         chapterNumber = chapter.number?.toInt() ?: -1,
                         chapterTitle = if (chapter.number == null) chapter.title else getString(
                             R.string.chapter_title,
-                            chapter.number.toString(),
+                            chapter.number.toInt().toString(),
                             chapter.title
                         )
                     )
