@@ -32,20 +32,22 @@ class SectionsViewModel: ViewModel() {
 
                 if (response.hasErrors()) {
                     emit(Resource.error("Response has errors" ,null))
+                    return@liveData
                 }
-                if (response.data?.chapter != null) {
-                    val sections = response.data!!.chapter!!.sections
+                response.data?.chapter?.sections?.let { sections ->
                     if (sections.size > 1) {
                         emit(Resource.success(sections))
                     } else {
-                        emit(Resource.error("Empty sections", null))
+                        emit(Resource.error("No sections", null))
                     }
-                } else {
-                    emit(Resource.error("Data is empty" ,null))
+                    return@liveData
                 }
+                emit(Resource.error("Chapter has no sections" ,null))
+                return@liveData
             } catch (e: ApolloException) {
-                Log.d("ChaptersQuery", "GraphQL request failed", e)
+                Log.d("Sections Query", "GraphQL request failed", e)
                 emit(Resource.error("GraphQL request failed", null))
+                return@liveData
             }
         }
     }
