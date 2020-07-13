@@ -8,7 +8,8 @@
     <fragment
         android:id="@+id/chapters_fragment"
         android:name="guide.graphql.toc.ui.chapters.ChaptersFragment"
-        tools:layout="@layout/chapters_fragment">
+        tools:layout="@layout/chapters_fragment"
+        android:label="@string/app_name">
         <action
             android:id="@+id/view_sections"
             app:destination="@id/sections_fragment" />
@@ -17,7 +18,8 @@
     <fragment
         android:id="@+id/sections_fragment"
         android:name="guide.graphql.toc.ui.sections.SectionsFragment"
-        tools:layout="@layout/sections_fragment">
+        tools:layout="@layout/sections_fragment"
+        android:label="{chapterTitle}">
 
         <argument
             android:name="chapterId"

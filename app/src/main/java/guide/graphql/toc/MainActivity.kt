@@ -12,11 +12,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val navigationListener = NavController.OnDestinationChangedListener { controller, destination, arguments ->
-        if (destination.id == R.id.chapters_fragment) {
-            this.setTitle(R.string.app_name)
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,15 +26,5 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.nav_host_fragment).navigateUp() || super.onSupportNavigateUp()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener(navigationListener)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        findNavController(R.id.nav_host_fragment).removeOnDestinationChangedListener(navigationListener)
     }
 }

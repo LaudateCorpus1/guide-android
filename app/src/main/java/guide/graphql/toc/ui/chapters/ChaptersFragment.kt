@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialFade
+import guide.graphql.toc.R
 import guide.graphql.toc.Status
 import guide.graphql.toc.databinding.ChaptersFragmentBinding
 
@@ -51,7 +52,11 @@ class ChaptersFragment : Fragment() {
                     ChaptersFragmentDirections.viewSections(
                         chapterId = chapter.id,
                         chapterNumber = chapter.number?.toInt() ?: -1,
-                        chapterTitle = chapter.title
+                        chapterTitle = if (chapter.number == null) chapter.title else getString(
+                            R.string.chapter_title,
+                            chapter.number.toString(),
+                            chapter.title
+                        )
                     )
                 )
             }
@@ -68,7 +73,11 @@ class ChaptersFragment : Fragment() {
                         adapter.updateChapters(it)
                     }
                 }
-                Status.ERROR -> Toast.makeText(requireContext(), "Error: ${chapterListResponse.message}", Toast.LENGTH_SHORT).show()
+                Status.ERROR -> Toast.makeText(
+                    requireContext(),
+                    "Error: ${chapterListResponse.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
 
