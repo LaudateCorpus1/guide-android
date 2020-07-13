@@ -9,9 +9,9 @@ import guide.graphql.toc.SectionsQuery
 import guide.graphql.toc.databinding.SectionBinding
 
 class SectionsAdapter(
-    private val chapterNumber: Int?,
-    private var sections: List<SectionsQuery.Section?>,
-    private val context: Context
+    private val context: Context,
+    private val chapterNumber: Int,
+    private var sections: List<SectionsQuery.Section?> = listOf()
 ) :
     RecyclerView.Adapter<SectionsAdapter.ViewHolder>() {
 

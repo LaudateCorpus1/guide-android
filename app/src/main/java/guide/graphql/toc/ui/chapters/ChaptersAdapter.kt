@@ -10,8 +10,8 @@ import guide.graphql.toc.R
 import guide.graphql.toc.databinding.ChapterBinding
 
 class ChaptersAdapter(
-    private var chapters: List<ChaptersQuery.Chapter>,
     private val context: Context,
+    private var chapters: List<ChaptersQuery.Chapter> = listOf(),
     private val onItemClicked: ((ChaptersQuery.Chapter) -> Unit)
 ) :
     RecyclerView.Adapter<ChaptersAdapter.ViewHolder>() {

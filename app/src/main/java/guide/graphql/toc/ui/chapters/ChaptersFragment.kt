@@ -45,7 +45,6 @@ class ChaptersFragment : Fragment() {
         requireActivity()
         val adapter =
             ChaptersAdapter(
-                listOf(),
                 requireContext()
             ) { chapter ->
                 findNavController().navigate(
