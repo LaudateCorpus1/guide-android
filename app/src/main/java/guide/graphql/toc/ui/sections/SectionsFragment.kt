@@ -17,6 +17,7 @@ import com.apollographql.apollo.coroutines.toDeferred
 import com.apollographql.apollo.exception.ApolloException
 import com.google.android.material.transition.MaterialFade
 import com.google.android.material.transition.MaterialFadeThrough
+import com.google.android.material.transition.MaterialSharedAxis
 import guide.graphql.toc.*
 import guide.graphql.toc.databinding.SectionsFragmentBinding
 
@@ -38,10 +39,11 @@ class SectionsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enterTransition = MaterialFade()
-        exitTransition = MaterialFade().apply {
-            duration = 0
-        }
+        val forward = MaterialSharedAxis(MaterialSharedAxis.X, true)
+        enterTransition = forward
+
+        val backward = MaterialSharedAxis(MaterialSharedAxis.X, false)
+        returnTransition = backward
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

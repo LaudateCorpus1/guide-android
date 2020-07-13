@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialFade
+import com.google.android.material.transition.MaterialSharedAxis
 import guide.graphql.toc.R
 import guide.graphql.toc.Status
 import guide.graphql.toc.databinding.ChaptersFragmentBinding
@@ -34,9 +35,12 @@ class ChaptersFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val materialFade = MaterialFade()
-        exitTransition = materialFade
 
+        val backward = MaterialSharedAxis(MaterialSharedAxis.X, false)
+        reenterTransition = backward
+
+        val forward = MaterialSharedAxis(MaterialSharedAxis.X, true)
+        exitTransition = forward
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
