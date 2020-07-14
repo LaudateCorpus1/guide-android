@@ -13,8 +13,6 @@ import guide.graphql.toc.apolloClient
 
 class ChaptersViewModel : ViewModel() {
 
-    val bookId: LiveData<Int> = MutableLiveData(0)
-
     val chapterList: LiveData<Resource<List<ChaptersQuery.Chapter>>> = liveData {
         emit(Resource.loading(null))
         try {
