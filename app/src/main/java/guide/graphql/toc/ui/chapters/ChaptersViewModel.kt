@@ -23,18 +23,18 @@ class ChaptersViewModel : ViewModel() {
             ).toDeferred().await()
 
             if (response.hasErrors()) {
-                emit(Resource.error("Response has errors" ,null))
+                emit(Resource.error("Response has errors", null))
                 return@liveData
             }
-            response.data?.chapters?.let{
+            response.data?.chapters?.let {
                 emit(Resource.success(response.data!!.chapters))
                 return@liveData
             }
-            emit(Resource.error("Data is null" ,null))
+            emit(Resource.error("Data is null", null))
             return@liveData
         } catch (e: ApolloException) {
             Log.d("ChaptersQuery", "GraphQL request failed", e)
-             emit(Resource.error("GraphQL request failed", null))
+            emit(Resource.error("GraphQL request failed", null))
             return@liveData
         }
     }
