@@ -1,20 +1,27 @@
-package guide.graphql.toc
+package guide.graphql.toc.ui.chapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import guide.graphql.toc.ChaptersQuery
+import guide.graphql.toc.R
 import guide.graphql.toc.databinding.ChapterBinding
 
 class ChaptersAdapter(
-    private val chapters: List<ChaptersQuery.Chapter>,
     private val context: Context,
+    private var chapters: List<ChaptersQuery.Chapter> = listOf(),
     private val onItemClicked: ((ChaptersQuery.Chapter) -> Unit)
 ) :
     RecyclerView.Adapter<ChaptersAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ChapterBinding) : RecyclerView.ViewHolder(binding.root)
+
+    fun updateChapters(chapters: List<ChaptersQuery.Chapter>) {
+        this.chapters = chapters
+        notifyDataSetChanged()
+    }
 
     override fun getItemCount(): Int {
         return chapters.size
