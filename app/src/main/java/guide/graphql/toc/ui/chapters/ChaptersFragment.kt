@@ -81,6 +81,8 @@ class ChaptersFragment : Fragment() {
                     getString(R.string.graphql_error, chapterListResponse.message),
                     Toast.LENGTH_SHORT
                 ).show()
+                Status.LOADING -> {
+                }
             }
         })
     }
