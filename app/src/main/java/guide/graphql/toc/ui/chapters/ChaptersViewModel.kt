@@ -7,8 +7,8 @@ import androidx.lifecycle.liveData
 import com.apollographql.apollo.coroutines.toDeferred
 import com.apollographql.apollo.exception.ApolloException
 import guide.graphql.toc.ChaptersQuery
-import guide.graphql.toc.Resource
-import guide.graphql.toc.apolloClient
+import guide.graphql.toc.data.Resource
+import guide.graphql.toc.data.apolloClient
 
 class ChaptersViewModel : ViewModel() {
 

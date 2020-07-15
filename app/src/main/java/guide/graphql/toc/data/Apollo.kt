@@ -1,4 +1,4 @@
-package guide.graphql.toc
+package guide.graphql.toc.data
 
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.cache.normalized.lru.EvictionPolicy

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialSharedAxis
 import guide.graphql.toc.R
-import guide.graphql.toc.Status
+import guide.graphql.toc.data.Status
 import guide.graphql.toc.databinding.ChaptersFragmentBinding
 
 class ChaptersFragment : Fragment() {

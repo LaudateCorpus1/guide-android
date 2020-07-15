@@ -11,7 +11,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialSharedAxis
-import guide.graphql.toc.Status
+import guide.graphql.toc.data.Status
 import guide.graphql.toc.databinding.SectionsFragmentBinding
 
 class SectionsFragment : Fragment() {

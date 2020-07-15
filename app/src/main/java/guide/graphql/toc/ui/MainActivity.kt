@@ -1,10 +1,11 @@
-package guide.graphql.toc
+package guide.graphql.toc.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import guide.graphql.toc.R
 import guide.graphql.toc.databinding.ActivityMainBinding
 
 
