@@ -1,6 +1,7 @@
 package guide.graphql.toc.ui.sections
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +11,12 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.apollographql.apollo.exception.ApolloException
 import com.google.android.material.transition.MaterialSharedAxis
-import guide.graphql.toc.data.Status
 import guide.graphql.toc.databinding.SectionsFragmentBinding
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 class SectionsFragment : Fragment() {
 
     private val viewModel: SectionsViewModel by viewModels()
@@ -56,22 +59,18 @@ class SectionsFragment : Fragment() {
         binding.sections.addItemDecoration(itemDivider)
         binding.sections.adapter = adapter
 
-        viewModel.sectionsList.observe(viewLifecycleOwner, Observer { sectionsResource ->
-            when (sectionsResource.status) {
-                Status.SUCCESS -> {
-                    sectionsResource.data?.let {
-                        adapter.updateSections(it)
-                        binding.spinner.visibility = View.GONE
-                        binding.error.visibility = View.GONE
-                    }
-                }
-                Status.ERROR -> {
-                    showErrorMessage(sectionsResource.message ?: "")
-                }
-                Status.LOADING -> {
-                    binding.spinner.visibility = View.VISIBLE
-                    binding.error.visibility = View.GONE
-                }
+        viewModel.sectionList.observe(viewLifecycleOwner, Observer { sections ->
+            Log.i("SectionsFragment", "Updated section list")
+            adapter.updateSections(sections)
+            binding.spinner.visibility = View.GONE
+            binding.error.visibility = View.GONE
+        })
+
+        viewModel.sectionException.observe(viewLifecycleOwner, Observer { exception ->
+            if (exception is ApolloException) {
+                showErrorMessage("GraphQL request failed")
+            } else {
+                showErrorMessage(exception.message ?: "")
             }
         })
 

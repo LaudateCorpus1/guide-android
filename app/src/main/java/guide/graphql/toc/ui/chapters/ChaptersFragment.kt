@@ -1,6 +1,7 @@
 package guide.graphql.toc.ui.chapters
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +12,13 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.apollographql.apollo.exception.ApolloException
 import com.google.android.material.transition.MaterialSharedAxis
 import guide.graphql.toc.R
-import guide.graphql.toc.data.Status
 import guide.graphql.toc.databinding.ChaptersFragmentBinding
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 class ChaptersFragment : Fragment() {
 
     private val viewModel: ChaptersViewModel by viewModels()
@@ -69,21 +72,24 @@ class ChaptersFragment : Fragment() {
         binding.chapters.addItemDecoration(itemDivider)
         binding.chapters.adapter = adapter
 
-        viewModel.chapterList.observe(viewLifecycleOwner, Observer { chapterListResponse ->
-            when (chapterListResponse.status) {
-                Status.SUCCESS -> {
-                    chapterListResponse.data?.let {
-                        adapter.updateChapters(it)
-                    }
-                }
-                Status.ERROR -> Toast.makeText(
-                    requireContext(),
-                    getString(R.string.graphql_error, chapterListResponse.message),
-                    Toast.LENGTH_SHORT
-                ).show()
-                Status.LOADING -> {
-                }
-            }
+        viewModel.chapterList.observe(viewLifecycleOwner, Observer {
+            Log.i("ChapterFragment", "Updated chapter list")
+            adapter.updateChapters(it)
         })
+
+        viewModel.chapterException.observe(viewLifecycleOwner, Observer { exception ->
+            Toast.makeText(
+                requireContext(),
+                getString(
+                    R.string.graphql_error, if (exception is ApolloException)
+                        "GraphQL request failed"
+                    else
+                        exception.message.orEmpty()
+
+                ),
+                Toast.LENGTH_SHORT
+            ).show()
+        })
+
     }
 }
