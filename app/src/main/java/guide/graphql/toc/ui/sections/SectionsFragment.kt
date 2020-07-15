@@ -19,7 +19,7 @@ class SectionsFragment : Fragment() {
     private val viewModel: SectionsViewModel by viewModels()
 
     private lateinit var binding: SectionsFragmentBinding
-    val args: SectionsFragmentArgs by navArgs()
+    private val args: SectionsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,

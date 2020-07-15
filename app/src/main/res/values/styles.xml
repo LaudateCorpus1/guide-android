@@ -12,12 +12,12 @@
     </style>
 
     <style name="AppTheme.Heading">
-        <item name="android:textSize">18dp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="AppTheme.Subheading">
-        <item name="android:textSize">18dp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
 </resources>
