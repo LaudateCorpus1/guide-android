@@ -77,18 +77,20 @@ class ChaptersFragment : Fragment() {
             adapter.updateChapters(it)
         })
 
-        viewModel.chapterException.observe(viewLifecycleOwner, Observer { exception ->
-            Toast.makeText(
-                requireContext(),
-                getString(
-                    R.string.graphql_error, if (exception is ApolloException)
-                        "GraphQL request failed"
-                    else
-                        exception.message.orEmpty()
+        viewModel.chapterException.observe(viewLifecycleOwner, Observer {
+            it?.let { exception ->
+                Toast.makeText(
+                    requireContext(),
+                    getString(
+                        R.string.graphql_error, if (exception is ApolloException)
+                            "GraphQL request failed"
+                        else
+                            exception.message.orEmpty()
 
-                ),
-                Toast.LENGTH_SHORT
-            ).show()
+                    ),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         })
 
     }

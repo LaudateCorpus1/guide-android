@@ -27,7 +27,7 @@ class SectionsViewModel : ViewModel() {
             }
         }
 
-    val sectionException: MutableLiveData<Throwable> = MutableLiveData()
+    val sectionException: MutableLiveData<Throwable?> = MutableLiveData()
 
     val sectionList = _chapterId.switchMap { chapterId ->
         apolloClient.query(SectionsQuery(id = chapterId))
@@ -36,6 +36,7 @@ class SectionsViewModel : ViewModel() {
                 if (response.hasErrors()) throw Exception("Response has errors")
                 val sections = response.data?.chapter?.sections ?: throw Exception("Data is null")
                 if (sections.size > 1) {
+                    sectionException.value = null
                     return@map sections
                 }
                 throw Exception("No sections")

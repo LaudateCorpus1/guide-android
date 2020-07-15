@@ -14,12 +14,14 @@ import kotlinx.coroutines.flow.map
 @ExperimentalCoroutinesApi
 class ChaptersViewModel : ViewModel() {
 
-    val chapterException: MutableLiveData<Throwable> = MutableLiveData()
+    val chapterException: MutableLiveData<Throwable?> = MutableLiveData()
 
     val chapterList = apolloClient.query(ChaptersQuery())
         .responseFetcher(ApolloResponseFetchers.CACHE_AND_NETWORK).watcher().toFlow().map { response ->
             if (response.hasErrors()) throw Exception("Response has errors")
-            return@map response.data?.chapters ?: throw Exception("Data is null")
+            val chapters = response.data?.chapters ?: throw Exception("Data is null")
+            chapterException.value = null
+            return@map chapters
         }.catch { exception ->
             chapterException.postValue(exception)
         }.asLiveData()

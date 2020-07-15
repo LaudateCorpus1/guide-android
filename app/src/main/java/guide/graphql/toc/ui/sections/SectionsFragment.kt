@@ -66,11 +66,13 @@ class SectionsFragment : Fragment() {
             binding.error.visibility = View.GONE
         })
 
-        viewModel.sectionException.observe(viewLifecycleOwner, Observer { exception ->
-            if (exception is ApolloException) {
-                showErrorMessage("GraphQL request failed")
-            } else {
-                showErrorMessage(exception.message ?: "")
+        viewModel.sectionException.observe(viewLifecycleOwner, Observer {
+            it?.let { exception ->
+                if (exception is ApolloException) {
+                    showErrorMessage("GraphQL request failed")
+                } else {
+                    showErrorMessage(exception.message ?: "")
+                }
             }
         })
 
