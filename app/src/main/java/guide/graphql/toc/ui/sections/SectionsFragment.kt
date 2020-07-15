@@ -61,7 +61,7 @@ class SectionsFragment : Fragment() {
 
         viewModel.sectionList.observe(viewLifecycleOwner, Observer { sections ->
             Log.i("SectionsFragment", "Updated section list")
-            adapter.updateSections(sections)
+            adapter.submitList(sections)
             binding.spinner.visibility = View.GONE
             binding.error.visibility = View.GONE
         })

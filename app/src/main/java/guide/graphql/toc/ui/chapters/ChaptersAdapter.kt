@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import guide.graphql.toc.ChaptersQuery
 import guide.graphql.toc.R
@@ -11,21 +13,12 @@ import guide.graphql.toc.databinding.ChapterBinding
 
 class ChaptersAdapter(
     private val context: Context,
-    private var chapters: List<ChaptersQuery.Chapter> = listOf(),
     private val onItemClicked: ((ChaptersQuery.Chapter) -> Unit)
 ) :
-    RecyclerView.Adapter<ChaptersAdapter.ViewHolder>() {
+    ListAdapter<ChaptersQuery.Chapter, ChaptersAdapter.ViewHolder>(ChaptersDiffCallback()) {
 
     class ViewHolder(val binding: ChapterBinding) : RecyclerView.ViewHolder(binding.root)
 
-    fun updateChapters(chapters: List<ChaptersQuery.Chapter>) {
-        this.chapters = chapters
-        notifyDataSetChanged()
-    }
-
-    override fun getItemCount(): Int {
-        return chapters.size
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ChapterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -33,7 +26,7 @@ class ChaptersAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val chapter = chapters[position]
+        val chapter = getItem(position)
         val header =
             if (chapter.number == null) chapter.title else context.getString(
                 R.string.chapter_number,
@@ -53,4 +46,22 @@ class ChaptersAdapter(
             onItemClicked.invoke(chapter)
         }
     }
+}
+
+class ChaptersDiffCallback : DiffUtil.ItemCallback<ChaptersQuery.Chapter>() {
+    override fun areItemsTheSame(
+        oldItem: ChaptersQuery.Chapter,
+        newItem: ChaptersQuery.Chapter
+    ): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(
+        oldItem: ChaptersQuery.Chapter,
+        newItem: ChaptersQuery.Chapter
+    ): Boolean {
+       return oldItem == newItem
+    }
+
+
 }

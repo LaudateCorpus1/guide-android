@@ -74,7 +74,7 @@ class ChaptersFragment : Fragment() {
 
         viewModel.chapterList.observe(viewLifecycleOwner, Observer {
             Log.i("ChapterFragment", "Updated chapter list")
-            adapter.updateChapters(it)
+            adapter.submitList(it)
         })
 
         viewModel.chapterException.observe(viewLifecycleOwner, Observer {
