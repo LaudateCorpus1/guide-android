@@ -1,11 +1,10 @@
 package guide.graphql.toc.ui.sections
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.apollographql.apollo.coroutines.toDeferred
 import com.apollographql.apollo.exception.ApolloException
-import guide.graphql.toc.data.Resource
 import guide.graphql.toc.SectionsQuery
+import guide.graphql.toc.data.Resource
 import guide.graphql.toc.data.apolloClient
 
 class SectionsViewModel : ViewModel() {
@@ -23,32 +22,27 @@ class SectionsViewModel : ViewModel() {
         }
 
     val sectionsList: LiveData<Resource<List<SectionsQuery.Section?>>> =
-        _chapterId.switchMap { sectionId ->
+        _chapterId.switchMap { chapterId ->
             return@switchMap liveData {
                 emit(Resource.loading(null))
                 try {
                     val response = apolloClient.query(
-                        SectionsQuery(id = sectionId)
+                        SectionsQuery(id = chapterId)
                     ).toDeferred().await()
 
                     if (response.hasErrors()) {
-                        emit(Resource.error("Response has errors", null))
-                        return@liveData
+                        throw Exception("Response has errors")
                     }
-                    response.data?.chapter?.sections?.let { sections ->
-                        if (sections.size > 1) {
-                            emit(Resource.success(sections))
-                        } else {
-                            emit(Resource.error("No sections", null))
-                        }
-                        return@liveData
+                    val sections = response.data?.chapter?.sections ?: throw Exception("Data is null")
+                    if (sections.size > 1) {
+                        emit(Resource.success(sections))
+                    } else {
+                        throw Exception("No sections")
                     }
-                    emit(Resource.error("Chapter has no sections", null))
-                    return@liveData
                 } catch (e: ApolloException) {
-                    Log.d("Sections Query", "GraphQL request failed", e)
                     emit(Resource.error("GraphQL request failed", null))
-                    return@liveData
+                } catch (e: Exception) {
+                    emit(Resource.error(e.message.orEmpty(), null))
                 }
             }
         }

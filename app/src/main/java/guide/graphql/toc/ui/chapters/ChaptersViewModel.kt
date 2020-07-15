@@ -1,6 +1,5 @@
 package guide.graphql.toc.ui.chapters
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
@@ -20,19 +19,15 @@ class ChaptersViewModel : ViewModel() {
             ).toDeferred().await()
 
             if (response.hasErrors()) {
-                emit(Resource.error("Response has errors", null))
-                return@liveData
+                throw Exception("Response has errors")
             }
-            response.data?.chapters?.let {
-                emit(Resource.success(response.data!!.chapters))
-                return@liveData
-            }
-            emit(Resource.error("Data is null", null))
-            return@liveData
+
+            val chapters = response.data?.chapters ?: throw Exception("Data is null")
+            emit(Resource.success(chapters))
         } catch (e: ApolloException) {
-            Log.d("ChaptersQuery", "GraphQL request failed", e)
             emit(Resource.error("GraphQL request failed", null))
-            return@liveData
+        } catch (e: Exception) {
+            emit(Resource.error(e.message.orEmpty(), null))
         }
     }
 }
