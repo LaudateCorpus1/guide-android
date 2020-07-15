@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -14,9 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.apollographql.apollo.coroutines.toDeferred
 import com.apollographql.apollo.exception.ApolloException
 import com.google.android.material.transition.MaterialSharedAxis
-import guide.graphql.toc.ChaptersQuery
 import guide.graphql.toc.SectionsQuery
-import guide.graphql.toc.data.Status
 import guide.graphql.toc.data.apolloClient
 import guide.graphql.toc.databinding.SectionsFragmentBinding
 
