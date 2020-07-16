@@ -68,7 +68,6 @@ class ChaptersFragment : Fragment() {
         binding.chapters.adapter = adapter
 
         lifecycleScope.launchWhenStarted {
-            // Loading
             try {
                 val response = apolloClient.query(
                     ChaptersQuery()
@@ -77,10 +76,8 @@ class ChaptersFragment : Fragment() {
                     throw Exception("Response has errors")
                 }
                 val chapters = response.data?.chapters ?: throw Exception("Data is null")
-                // Success
                 adapter.updateChapters(chapters)
             } catch (e: ApolloException) {
-                // Error
                 showErrorMessage("GraphQL request failed")
             } catch (e: Exception) {
                 showErrorMessage(e.message.orEmpty())

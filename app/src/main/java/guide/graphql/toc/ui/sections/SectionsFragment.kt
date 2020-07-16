@@ -58,18 +58,19 @@ class SectionsFragment : Fragment() {
         binding.sections.adapter = adapter
 
         lifecycleScope.launchWhenStarted {
-            // Loading
             binding.spinner.visibility = View.VISIBLE
             binding.error.visibility = View.GONE
             try {
                 val response = apolloClient.query(
                     SectionsQuery(id = args.chapterId)
                 ).toDeferred().await()
+
                 if (response.hasErrors()) {
                     throw Exception("Response has errors")
                 }
+
                 val sections = response.data?.chapter?.sections ?: throw Exception("Data is null")
-                // Success
+
                 if (sections.size > 1) {
                     adapter.updateSections(sections)
                     binding.spinner.visibility = View.GONE
@@ -78,7 +79,6 @@ class SectionsFragment : Fragment() {
                     throw Exception("No sections")
                 }
             } catch (e: ApolloException) {
-                // Error
                 showErrorMessage("GraphQL request failed")
             } catch (e: Exception) {
                 showErrorMessage(e.message.orEmpty())
