@@ -18,7 +18,12 @@ class SectionsFragment : Fragment() {
 
     private val viewModel: SectionsViewModel by viewModels()
 
-    private lateinit var binding: SectionsFragmentBinding
+    private var _binding: SectionsFragmentBinding? = null
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
+
+
     private val args: SectionsFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -26,7 +31,7 @@ class SectionsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = SectionsFragmentBinding.inflate(inflater)
+        _binding = SectionsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -76,6 +81,11 @@ class SectionsFragment : Fragment() {
         })
 
         viewModel.chapterId = args.chapterId
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun showErrorMessage(error: String) {
