@@ -19,14 +19,18 @@ import guide.graphql.toc.data.apolloClient
 import guide.graphql.toc.databinding.ChaptersFragmentBinding
 
 class ChaptersFragment : Fragment() {
+    private var _binding: ChaptersFragmentBinding? = null
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
-    private lateinit var binding: ChaptersFragmentBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ChaptersFragmentBinding.inflate(inflater)
+        _binding = ChaptersFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -85,6 +89,10 @@ class ChaptersFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     private fun showErrorMessage(errorMessage: String) {
         Toast.makeText(
