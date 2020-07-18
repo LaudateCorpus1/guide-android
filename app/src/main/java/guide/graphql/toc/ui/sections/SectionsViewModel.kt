@@ -10,6 +10,7 @@ import guide.graphql.toc.SectionsQuery
 import guide.graphql.toc.data.apolloClient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 
 @ExperimentalCoroutinesApi
@@ -32,6 +33,7 @@ class SectionsViewModel : ViewModel() {
     val sectionList = _chapterId.switchMap { chapterId ->
         apolloClient.query(SectionsQuery(id = chapterId))
             .responseFetcher(ApolloResponseFetchers.CACHE_AND_NETWORK).watcher().toFlow()
+            .distinctUntilChanged()
             .map { response ->
                 if (response.hasErrors()) throw Exception("Response has errors")
                 val sections = response.data?.chapter?.sections ?: throw Exception("Data is null")

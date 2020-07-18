@@ -9,6 +9,7 @@ import guide.graphql.toc.ChaptersQuery
 import guide.graphql.toc.data.apolloClient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 
 @ExperimentalCoroutinesApi
@@ -17,7 +18,8 @@ class ChaptersViewModel : ViewModel() {
     val chapterException: MutableLiveData<Throwable?> = MutableLiveData()
 
     val chapterList = apolloClient.query(ChaptersQuery())
-        .responseFetcher(ApolloResponseFetchers.CACHE_AND_NETWORK).watcher().toFlow().map { response ->
+        .responseFetcher(ApolloResponseFetchers.CACHE_AND_NETWORK).watcher().toFlow()
+        .distinctUntilChanged().map { response ->
             if (response.hasErrors()) throw Exception("Response has errors")
             val chapters = response.data?.chapters ?: throw Exception("Data is null")
             chapterException.value = null
