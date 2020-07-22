@@ -1,7 +1,0 @@
-query Chapters {
-  chapters {
-    id
-    number
-    title
-  }
-}

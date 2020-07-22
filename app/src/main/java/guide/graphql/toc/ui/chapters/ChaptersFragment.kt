@@ -6,24 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.apollographql.apollo.coroutines.toDeferred
-import com.apollographql.apollo.exception.ApolloException
 import com.google.android.material.transition.MaterialSharedAxis
-import guide.graphql.toc.ChaptersQuery
 import guide.graphql.toc.R
-import guide.graphql.toc.data.apolloClient
 import guide.graphql.toc.databinding.ChaptersFragmentBinding
 
 class ChaptersFragment : Fragment() {
     private var _binding: ChaptersFragmentBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,12 +45,12 @@ class ChaptersFragment : Fragment() {
             ) { chapter ->
                 findNavController().navigate(
                     ChaptersFragmentDirections.viewSections(
-                        chapterId = chapter.id,
-                        chapterNumber = chapter.number?.toInt() ?: -1,
-                        chapterTitle = if (chapter.number == null) chapter.title else getString(
+                        chapterId = 10,
+                        chapterNumber = 10,
+                        chapterTitle = getString(
                             R.string.chapter_title,
-                            chapter.number.toInt().toString(),
-                            chapter.title
+                            "10",
+                            "Android Dev"
                         )
                     )
                 )
@@ -71,22 +63,7 @@ class ChaptersFragment : Fragment() {
         binding.chapters.addItemDecoration(itemDivider)
         binding.chapters.adapter = adapter
 
-        lifecycleScope.launchWhenStarted {
-            try {
-                val response = apolloClient.query(
-                    ChaptersQuery()
-                ).toDeferred().await()
-                if (response.hasErrors()) {
-                    throw Exception("Response has errors")
-                }
-                val chapters = response.data?.chapters ?: throw Exception("Data is null")
-                adapter.updateChapters(chapters)
-            } catch (e: ApolloException) {
-                showErrorMessage("GraphQL request failed")
-            } catch (e: Exception) {
-                showErrorMessage(e.message.orEmpty())
-            }
-        }
+        adapter.updateChapters(listOf("Android Dev"))
     }
 
     override fun onDestroyView() {

@@ -5,25 +5,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import guide.graphql.toc.R
-import guide.graphql.toc.SectionsQuery
 import guide.graphql.toc.databinding.SectionBinding
 
 class SectionsAdapter(
     private val context: Context,
-    private val chapterNumber: Int,
-    private var sections: List<SectionsQuery.Section?> = listOf()
+    private val chapterNumber: Int
 ) :
     RecyclerView.Adapter<SectionsAdapter.ViewHolder>() {
-
-    fun updateSections(sections: List<SectionsQuery.Section?>) {
-        this.sections = sections
-        notifyDataSetChanged()
-    }
 
     class ViewHolder(val binding: SectionBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun getItemCount(): Int {
-        return sections.size
+        return 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,15 +24,5 @@ class SectionsAdapter(
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val section = sections[position]
-        section?.let {
-            holder.binding.sectionTitle.text = context.getString(
-                R.string.section_title,
-                chapterNumber.toString(),
-                section.number.toString(),
-                section.title
-            )
-        }
-    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {}
 }
