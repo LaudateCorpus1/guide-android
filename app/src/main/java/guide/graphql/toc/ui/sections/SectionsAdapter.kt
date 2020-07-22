@@ -10,8 +10,7 @@ import guide.graphql.toc.databinding.SectionBinding
 class SectionsAdapter(
     private val context: Context,
     private val chapterNumber: Int
-) :
-    RecyclerView.Adapter<SectionsAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<SectionsAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: SectionBinding) : RecyclerView.ViewHolder(binding.root)
 

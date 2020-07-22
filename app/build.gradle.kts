@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("androidx.navigation.safeargs.kotlin")
-    id("com.apollographql.apollo").version("2.2.2")
 }
 
 android {
@@ -16,7 +15,7 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
-    
+
     buildFeatures {
         viewBinding = true
     }
@@ -44,12 +43,4 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.3.0")
     implementation("com.google.android.material:material:1.3.0-alpha01")
-    implementation("com.apollographql.apollo:apollo-runtime:2.2.2")
-    implementation("com.apollographql.apollo:apollo-coroutines-support:2.2.2")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
-
-}
-
-apollo {
-    generateKotlinModels.set(true)
 }

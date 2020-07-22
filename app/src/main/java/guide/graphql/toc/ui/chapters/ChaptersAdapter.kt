@@ -10,8 +10,7 @@ class ChaptersAdapter(
     private val context: Context,
     private var chapters: List<String> = listOf(),
     private val onItemClicked: ((String) -> Unit)
-) :
-    RecyclerView.Adapter<ChaptersAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<ChaptersAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ChapterBinding) : RecyclerView.ViewHolder(binding.root)
 
