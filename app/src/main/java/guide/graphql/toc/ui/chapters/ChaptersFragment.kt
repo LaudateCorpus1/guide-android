@@ -25,9 +25,7 @@ class ChaptersFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-
     private val viewModel: ChaptersViewModel by viewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -90,13 +88,11 @@ class ChaptersFragment : Fragment() {
                             "GraphQL request failed"
                         else
                             exception.message.orEmpty()
-
                     ),
                     Toast.LENGTH_SHORT
                 ).show()
             }
         })
-
     }
 
     override fun onDestroyView() {
