@@ -7,7 +7,7 @@ import androidx.lifecycle.switchMap
 import com.apollographql.apollo.coroutines.toFlow
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
 import guide.graphql.toc.SectionsQuery
-import guide.graphql.toc.data.apolloClient
+import guide.graphql.toc.data.Apollo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -31,7 +31,7 @@ class SectionsViewModel : ViewModel() {
     val sectionException: MutableLiveData<Throwable?> = MutableLiveData()
 
     val sectionList = _chapterId.switchMap { chapterId ->
-        apolloClient.query(SectionsQuery(id = chapterId))
+        Apollo.client.query(SectionsQuery(id = chapterId))
             .responseFetcher(ApolloResponseFetchers.CACHE_AND_NETWORK).watcher().toFlow()
             .distinctUntilChanged()
             .map { response ->

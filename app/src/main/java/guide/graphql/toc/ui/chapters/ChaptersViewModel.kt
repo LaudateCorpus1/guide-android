@@ -6,7 +6,7 @@ import androidx.lifecycle.asLiveData
 import com.apollographql.apollo.coroutines.toFlow
 import com.apollographql.apollo.fetcher.ApolloResponseFetchers
 import guide.graphql.toc.ChaptersQuery
-import guide.graphql.toc.data.apolloClient
+import guide.graphql.toc.data.Apollo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -17,7 +17,7 @@ class ChaptersViewModel : ViewModel() {
 
     val chapterException: MutableLiveData<Throwable?> = MutableLiveData()
 
-    val chapterList = apolloClient.query(ChaptersQuery())
+    val chapterList = Apollo.client.query(ChaptersQuery())
         .responseFetcher(ApolloResponseFetchers.CACHE_AND_NETWORK).watcher().toFlow()
         .distinctUntilChanged().map { response ->
             if (response.hasErrors()) throw Exception("Response has errors")
