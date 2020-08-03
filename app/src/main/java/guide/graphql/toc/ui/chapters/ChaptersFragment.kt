@@ -15,7 +15,7 @@ import com.apollographql.apollo.exception.ApolloException
 import com.google.android.material.transition.MaterialSharedAxis
 import guide.graphql.toc.ChaptersQuery
 import guide.graphql.toc.R
-import guide.graphql.toc.data.apolloClient
+import guide.graphql.toc.data.Apollo
 import guide.graphql.toc.databinding.ChaptersFragmentBinding
 
 class ChaptersFragment : Fragment() {
@@ -73,7 +73,7 @@ class ChaptersFragment : Fragment() {
 
         lifecycleScope.launchWhenStarted {
             try {
-                val response = apolloClient.query(
+                val response = Apollo.client.query(
                     ChaptersQuery()
                 ).toDeferred().await()
                 if (response.hasErrors()) {
