@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.apollographql.apollo.coroutines.toDeferred
 import com.apollographql.apollo.exception.ApolloException
 import com.google.android.material.transition.MaterialSharedAxis
+import guide.graphql.toc.GuideApp
 import guide.graphql.toc.SectionsQuery
-import guide.graphql.toc.data.apolloClient
 import guide.graphql.toc.databinding.SectionsFragmentBinding
 
 class SectionsFragment : Fragment() {
@@ -66,7 +66,7 @@ class SectionsFragment : Fragment() {
             binding.spinner.visibility = View.VISIBLE
             binding.error.visibility = View.GONE
             try {
-                val response = apolloClient.query(
+                val response = (activity?.application as GuideApp).apolloClient.query(
                     SectionsQuery(id = args.chapterId)
                 ).toDeferred().await()
 
