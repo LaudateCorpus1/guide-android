@@ -6,15 +6,15 @@ import androidx.lifecycle.liveData
 import com.apollographql.apollo.coroutines.toDeferred
 import com.apollographql.apollo.exception.ApolloException
 import guide.graphql.toc.ChaptersQuery
+import guide.graphql.toc.data.Apollo
 import guide.graphql.toc.data.Resource
-import guide.graphql.toc.data.apolloClient
 
 class ChaptersViewModel : ViewModel() {
 
     val chapterList: LiveData<Resource<List<ChaptersQuery.Chapter>>> = liveData {
         emit(Resource.loading(null))
         try {
-            val response = apolloClient.query(
+            val response = Apollo.client.query(
                 ChaptersQuery()
             ).toDeferred().await()
 
